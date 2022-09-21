@@ -3,4 +3,5 @@
     <string name="app_name">Nick\'s Android Labs</string>
     <string name="hello_message">Bonjour Tout le monde</string>
     <string name="button_message">Je suis une Bouton</string>
+    <string name="compound_question">Do you like coffee in french?</string>
 </resources>
