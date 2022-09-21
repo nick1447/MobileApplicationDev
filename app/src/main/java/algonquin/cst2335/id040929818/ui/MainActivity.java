@@ -28,11 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         model = new ViewModelProvider(this).get(MainViewModel.class);
 
-
-        variableBinding.button.setOnClickListener(click -> {
-            model.editString.postValue(variableBinding.edittext.getText().toString());
-        });
-
         model.editString.observe(this, string -> {
             variableBinding.textview.setText("Your edit text has " + string);
         });
@@ -43,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
             variableBinding.checkbox.setChecked(isChecked);
 
             Toast.makeText(this, "The value is now: " + isChecked, Toast.LENGTH_SHORT).show();
+        });
+
+        variableBinding.button.setOnClickListener(click -> {
+            model.editString.postValue(variableBinding.edittext.getText().toString());
         });
 
         variableBinding.checkbox.setOnCheckedChangeListener((btn, isChecked) -> {
@@ -57,5 +56,12 @@ public class MainActivity extends AppCompatActivity {
             model.isChecked.postValue(isChecked);
         });
 
+        variableBinding.imagebutton.setOnClickListener(click -> {
+            Toast.makeText(
+                    this,
+                    String.format("The width = %d, the height = %d", variableBinding.imagebutton.getWidth(), variableBinding.imagebutton.getHeight()),
+                    Toast.LENGTH_SHORT
+            ).show();
+        });
     }
 }
