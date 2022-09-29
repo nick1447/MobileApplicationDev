@@ -14,25 +14,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Log.w("MainActivity", "onDestroy(): Any memory used by the application is freed..");
+        Log.w("MainActivity", "onDestroy(): Any memory used by the application is freed..");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //Log.w("MainActivity", "onResume(): The application is now responding to user input.");
+        Log.w("MainActivity", "onResume(): The application is now responding to user input.");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //Log.w("MainActivity", "onStop(): The application is no longer visible.");
+        Log.w("MainActivity", "onStop(): The application is no longer visible.");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //Log.w("MainActivity", "onStart(): The application is now visible on screen.");
+        Log.w("MainActivity", "onStart(): The application is now visible on screen.");
     }
 
     @Override
