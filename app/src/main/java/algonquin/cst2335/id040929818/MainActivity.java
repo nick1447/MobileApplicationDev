@@ -2,7 +2,9 @@ package algonquin.cst2335.id040929818;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import algonquin.cst2335.id040929818.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onDestroy() {
@@ -39,14 +43,27 @@ public class MainActivity extends AppCompatActivity {
     //test
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityMainBinding variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(variableBinding.getRoot());
 
-        variableBinding.button.setOnClickListener(click -> startActivity(
-            new Intent(MainActivity.this, SecondActivity.class)
-                .putExtra("EmailAddress", variableBinding.emailAddressEdittext.getText().toString()))
-        );
+        prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
+        variableBinding.button.setOnClickListener(click -> {
+            startActivity(
+                new Intent(MainActivity.this, SecondActivity.class)
+                    .putExtra("EmailAddress", variableBinding.emailAddressEdittext.getText().toString())
+            );
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("LoginName", variableBinding.emailAddressEdittext.getText().toString());
+            editor.apply();
+        });
+
+
+
+
+        variableBinding.emailAddressEdittext.setText(prefs.getString("LoginName", ""));
 
         //Log.w( "MainActivity", "In onCreate() - Loading Widgets" );
     }

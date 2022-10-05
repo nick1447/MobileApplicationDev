@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -29,11 +30,16 @@ import algonquin.cst2335.id040929818.databinding.ActivitySecondBinding;
 
 public class SecondActivity extends AppCompatActivity {
 
+    private ActivitySecondBinding variableBinding;
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySecondBinding variableBinding = ActivitySecondBinding.inflate(getLayoutInflater());
+        variableBinding = ActivitySecondBinding.inflate(getLayoutInflater());
         setContentView(variableBinding.getRoot());
+
+        prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
         Intent previousIntent = getIntent();
         String email = previousIntent.getStringExtra("EmailAddress");
@@ -53,7 +59,7 @@ public class SecondActivity extends AppCompatActivity {
                     if(result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         Bitmap image = data.getParcelableExtra("data");
-                        //variableBinding.imageView.setImageBitmap(image);
+                        variableBinding.imageView.setImageBitmap(image);
                         FileOutputStream fileOut;
                         try {
                             fileOut = openFileOutput("Test.png", Context.MODE_PRIVATE);
@@ -77,6 +83,7 @@ public class SecondActivity extends AppCompatActivity {
             cameraResultIntent.launch(cameraIntent);
         });
 
+        //If a picture has already been set then load it into the ImageView
         File inputFile = new File(getFilesDir(), "Test.png");
         if(inputFile.exists()) {
             Log.w("SecondActivity", "file exists");
@@ -85,5 +92,18 @@ public class SecondActivity extends AppCompatActivity {
         } else {
             Log.w("SecondActivity", "file does not exist");
         }
+
+        if(prefs.getString("PhoneNumber", "") != "") {
+            variableBinding.editTextPhone.setText(prefs.getString("PhoneNumber", ""));
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("PhoneNumber", variableBinding.editTextPhone.getText().toString());
+        editor.apply();
     }
 }
