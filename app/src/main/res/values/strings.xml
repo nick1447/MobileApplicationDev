@@ -2,4 +2,6 @@
     <string name="app_name">Nick\'s Android Labs</string>
     <string name="hello_message">Hello World</string>
     <string name="button_message">I\'m a Button</string>
+    <string name="passwordMessage">Type in your password</string>
+    <string name="loginMessage">Login</string>
 </resources>
