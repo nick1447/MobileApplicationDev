@@ -6,4 +6,8 @@
     <string name="button1">Button 1</string>
     <string name="button2">Button 2</string>
     <string name="button3">Button 3</string>
+    <string name="email_message">Welcome</string>
+    <string name="type_email_message">Enter email here</string>
+    <string name="type_password_message">Enter password here</string>
+    <string name="login_button">Login</string>
 </resources>
